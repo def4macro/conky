@@ -1,0 +1,98 @@
+# Conky settings #
+background no
+update_interval 1
+
+cpu_avg_samples 4
+net_avg_samples 2
+
+override_utf8_locale yes
+
+double_buffer yes
+no_buffers yes
+
+text_buffer_size 2048
+#imlib_cache_size 0
+
+temperature_unit fahrenheit
+
+# Window specifications #
+
+## It's worked in KDE
+own_window yes
+own_window_type normal
+own_window_transparent yes
+own_window_argb_visual yes
+own_window_hints undecorate,sticky,skip_taskbar,skip_pager,below
+own_window_class conky-semi
+own_window_argb_value 0
+
+## It's worked in Xfce
+# own_window yes
+# own_window_type override
+# own_window_transparent yes
+# own_window_hints undecorate,sticky,skip_taskbar,skip_pager,below
+
+
+border_inner_margin 0
+border_outer_margin 0
+
+minimum_size 200 250
+maximum_width 200
+
+alignment tr
+gap_x 35
+gap_y 55
+
+# Graphics settings #
+draw_shades no
+draw_outline no
+draw_borders no
+draw_graph_borders no
+
+# Text settings #
+use_xft yes
+xftfont caviar dreams:size=8
+xftalpha 0.5
+
+uppercase no
+
+temperature_unit celsius
+
+
+default_color FFFFFF
+
+# Lua Load  #
+lua_load ~/.conky/scripts/clock_rings.lua
+lua_draw_hook_pre clock_rings
+
+TEXT
+${voffset 8}${color 0066FF}${font caviar dreams:size=16}${time %A}${font}${voffset -8}${alignr 50}${color FFFFFF}${font caviar dreams:size=38}${time %e}${font}
+${color FFFFFF}${voffset -30}${color FFFFFF}${font caviar dreams:size=18}${time %b}${font}${voffset -3} ${color FFFFFF}${font caviar dreams:size=20}${time %Y}${font}${color 0066FF}${hr}
+${voffset 140}${font caviar dreams:size=10}${alignr}HOME${font}
+${font caviar dreams:size=12}${color FFFFFF}${alignr}${weather http://weather.noaa.gov/pub/data/observations/metar/stations/ ZBAA temperature temperature 30} °C${font}
+${image ~/.conky/otss.png -p 58,115 -s 80x26}
+
+${color FFFFFF}${goto 0}${voffset 15}${cpu cpu1}%${color FFFFFF}${goto 50}${cpu cpu2}%${color FFFFFF}${goto 100}${cpu cpu3}%${color FFFFFF}${goto 150}${cpu cpu4}%
+${color 0066FF}${goto 0}CPU1${color 0066FF}${goto 50}CPU2${color 0066FF}${goto 100}CPU3${color 0066FF}${goto 150}CPU4
+${color FFFFFF}${goto 50}${voffset 43}${memperc}%
+${color 0066FF}${goto 50}RAM
+${color FFFFFF}${goto 70}${voffset 23}${swapperc}%
+${color 0066FF}${goto 70}Swap
+${color FFFFFF}${goto 100}${voffset 23}${fs_used_perc /}%
+${color 0066FF}${goto 100}Disk
+${color FFFFFF}${goto 115}${voffset 25}${downspeed eth0}
+${color FFFFFF}${goto 115}${upspeed eth0}
+# ${color FFFFFF}${goto 110}${voffset 25}${downspeed wlan}
+# ${color FFFFFF}${goto 110}${upspeed wlan}
+${color 0066FF}${goto 115}Net
+
+
+
+${color FFFFFF}${font caviar dreams:size=8}Uptime: ${uptime_short}
+${color FFFFFF}${font caviar dreams:size=8}Processes: ${processes}
+${color FFFFFF}${font caviar dreams:size=8}Running: ${running_processes}
+
+
+${color 0066FF}${font caviar dreams:size=8}${alignr}${nodename}
+${color 0066FF}${font caviar dreams:size=8}${alignr}${pre_exec cat /etc/issue.net}  $machine
+${color 0066FF}${font caviar dreams:size=8}${alignr}Kernel: ${kernel}
